@@ -302,6 +302,13 @@ app.delete("/api/partner/:index", (req, res) => {
   res.json({ message: "Đã xóa ảnh thành công", removedIndex: index });
 });
 
+const buildPath = path.join(__dirname, "client", "build");
+app.use(express.static(buildPath));
+
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(path.join(buildPath, "index.html"));
+});
+
 // Server chạy
 app.listen(PORT, () => {
   console.log(`Server đang chạy tại http://localhost:${PORT}`);
