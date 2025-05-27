@@ -73,7 +73,7 @@ app.post("/api/banner", upload.single("background"), (req, res) => {
 
   fs.writeFileSync(dataPath, JSON.stringify(currentData, null, 2));
 
-  res.json({ message: "Cập nhật banner thành công!", banner: newBanner });
+  res.json({ message: "Update banner thành công!", banner: newBanner });
 });
 
 app.put("/api/banner/:id", upload.single("background"), (req, res) => {
@@ -95,7 +95,7 @@ app.put("/api/banner/:id", upload.single("background"), (req, res) => {
     return res.status(404).json({ error: "banners not found" });
   }
 
-  // Cập nhật các trường nếu có
+  // Update các trường nếu có
   banners[bannerIndex].text1 = text1;
   banners[bannerIndex].text2 = text2;
   banners[bannerIndex].text3 = text3;
@@ -300,6 +300,94 @@ app.delete("/api/partner/:index", (req, res) => {
   fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
 
   res.json({ message: "Đã xóa ảnh thành công", removedIndex: index });
+});
+
+// API login
+app.post("/api/login", (req, res) => {
+  const { username, password } = req.body;
+
+  let users = [];
+  try {
+    const data = fs.readFileSync("user.json");
+    users = JSON.parse(data);
+  } catch (err) {
+    console.error("Lỗi đọc file user.json:", err);
+  }
+  const user = users.find((u) => u.username === username && u.password === password);
+
+  if (user) {
+    res.status(200).json({ message: "Đăng nhập thành công!" });
+  } else {
+    res.status(401).json({ message: "Sai username hoặc password" });
+  }
+});
+
+app.get("/api/contact-us", (req, res) => {
+  const dataPath = "contact-us.json";
+  if (!fs.existsSync(dataPath)) {
+    return res.json(null);
+  }
+  try {
+    const content = fs.readFileSync(dataPath, "utf8");
+    const contactUs = JSON.parse(content);
+    res.json(contactUs);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Error get about us!" });
+  }
+});
+
+app.put("/api/contact-us", (req, res) => {
+  const { title, description, data } = req.body;
+
+  const contactUsFile = "contact-us.json";
+  if (!fs.existsSync(contactUsFile)) {
+    return res.status(404).json({ error: "contact-us file not found" });
+  }
+
+  const rawData = fs.readFileSync(contactUsFile);
+  let contacUs = JSON.parse(rawData);
+  contacUs.title = title;
+  contacUs.description = description;
+  contacUs.data = data;
+  contacUs.updatedAt = new Date().toISOString();
+  // Ghi lại file JSON
+  fs.writeFileSync(contactUsFile, JSON.stringify(contacUs, null, 2), "utf-8");
+
+  res.status(200).json({ message: "contact-us updated successfully", contacUs: contacUs });
+});
+
+app.get("/api/footer", (req, res) => {
+  const dataPath = "footer.json";
+  if (!fs.existsSync(dataPath)) {
+    return res.json(null);
+  }
+  try {
+    const content = fs.readFileSync(dataPath, "utf8");
+    const footer = JSON.parse(content);
+    res.json(footer);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Error get about us!" });
+  }
+});
+
+app.put("/api/footer", (req, res) => {
+  const footerFile = "footer.json";
+  if (!fs.existsSync(footerFile)) {
+    return res.status(404).json({ error: "product-list file not found" });
+  }
+
+  const rawData = fs.readFileSync(footerFile);
+  let footer = JSON.parse(rawData);
+  footer = {
+    ...req.body,
+    updatedAt: new Date().toISOString(),
+  };
+  // Ghi lại file JSON
+  fs.writeFileSync(footerFile, JSON.stringify(footer, null, 2), "utf-8");
+
+  res.status(200).json({ message: "footer updated successfully", footer: footer });
 });
 
 const buildPath = path.join(__dirname, "client", "build");
