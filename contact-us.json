@@ -1,0 +1,23 @@
+{
+  "title": "CONTACT US",
+  "description": "Have question? Get in touch with us NOW",
+  "data": [
+    {
+      "name": "Singapore Office",
+      "address": "141 Middle Road# 05-06, GSM Building, Singapore (188976).",
+      "email": "ceo@infiniteltdgroup.com",
+      "hotline": "+65 316 58 048",
+      "fax": "+65 316 58 048",
+      "link": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4300.4166069432495!2d103.84981441085574!3d1.299470198682721!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da19bb3d92a31b%3A0xd725e0a4a17bb90a!2sGSM%20Building!5e1!3m2!1svi!2s!4v1747664095627!5m2!1svi!2s"
+    },
+    {
+      "name": "HongKong Office",
+      "address": "3308A, 33/F., Hopewell Centre, 183 Queen's Road East, Wanchai, Hong Kong",
+      "email": "ceo@infiniteltdgroup.com",
+      "hotline": "+65 316 58 048",
+      "fax": "+65 316 58 048",
+      "link": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3980.5328742983065!2d114.1691450111589!3d22.27463857962042!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3404004336e3a62d%3A0xd0266f05995e24a7!2sHopewell%20Centre!5e1!3m2!1svi!2s!4v1747664131899!5m2!1svi!2s"
+    }
+  ],
+  "updatedAt": "2025-05-27T15:45:57.192Z"
+}
